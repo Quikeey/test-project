@@ -1,30 +1,19 @@
 name: Deploy Private GitHub repository to cPanel
-
-pipelines:
-  branches:
-    main:
-        - step:
-          - uses: actions/checkout@v2.1.0
-          with:
-            fetch-depth: 2
-        - step:
-          - name: Use Node.js 16
-            uses: actions/setup-node@v3
-            with:
-              node-version: "16"
-        - step:
-          name: "Build app"
-            caches:
-              - node
-            script:
-              - npm install --quiet
-              - npm start
-            artifacts:
-              - dist/**
-        - step:
-          - name: FTP-Deploy-Action
-            uses: SamKirkland/FTP-Deploy-Action@4.3.0
-            with:
-              server: ${{ secrets.FTP_SERVER }}
-              username: ${{ secrets.FTP_USER }}
-              password: ${{ secrets.FTP_PASSWORD }}
+on:
+  push:
+    branches:
+      - main
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2.1.0
+      with:
+        fetch-depth: 2
+    - name: FTP-Deploy-Action
+      uses: SamKirkland/FTP-Deploy-Action@4.3.0
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PASSWORD }}
