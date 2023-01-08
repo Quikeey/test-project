@@ -7,13 +7,7 @@ pipelines:
           - uses: actions/checkout@v2.1.0
           with:
             fetch-depth: 2
-
-        - step:
-          - name: Use Node.js 16
-            uses: actions/setup-node@v3
-            with:
-              node-version: "16"
-
+            
         - step:
           name: "Build app"
             caches:
