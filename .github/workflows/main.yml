@@ -7,22 +7,28 @@ jobs:
   FTP-Deploy-Action:
     name: FTP-Deploy-Action
     runs-on: ubuntu-latest
-    steps:
+    - step:
       - uses: actions/checkout@v2.1.0
-        with:
-          fetch-depth: 2
+      with:
+        fetch-depth: 2
+
+    - step:
       - name: Use Node.js 16
         uses: actions/setup-node@v3
         with:
           node-version: "16"
+
+    - step:
       name: "Build app"
-      caches:
-        - node
-      script:
-        - npm install --quiet
-        - npm start
-      artifacts:
-        - dist/**
+        caches:
+          - node
+        script:
+          - npm install --quiet
+          - npm start
+        artifacts:
+          - dist/**
+
+    - step:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
