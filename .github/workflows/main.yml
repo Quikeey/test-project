@@ -15,6 +15,14 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "16"
+      name: "Build app"
+      caches:
+        - node
+      script:
+        - npm install --quiet
+        - npm start
+      artifacts:
+        - dist/**
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
