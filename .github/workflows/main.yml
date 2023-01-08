@@ -11,6 +11,11 @@ jobs:
     - uses: actions/checkout@v2.1.0
       with:
         fetch-depth: 2
+    - name: 🔨 Install Dependencies
+      if: steps.npm-cache.outputs.cache-hit != 'true'
+      run: |
+        npm install
+        npm start
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
