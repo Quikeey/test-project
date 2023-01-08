@@ -15,7 +15,7 @@ jobs:
       if: steps.npm-cache.outputs.cache-hit != 'true'
       run: |
         npm install
-        npm start
+        npm run build
     - name: FTP-Deploy-Action
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
